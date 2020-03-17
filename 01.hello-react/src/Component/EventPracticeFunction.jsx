@@ -6,15 +6,17 @@ const EventPracticeFunction = () => {
     message: '',
     address: '',
   });
+  // 한줄공란이 안먹음 .prettierrc 때문에 설정을 바꿔야함.
   const { username, message, address } = form;
   const onChange = e => {
     const nextForm = {
       ...form,
-      [e.target.name]: e.target.vlaue,
+      [e.target.name]: e.target.value,
     };
     setForm(nextForm);
   };
-  const onClick = () => {
+  const onSubmit = e => {
+    e.preventDefault();
     alert(username + ': ' + message + ', 주소' + address);
     setForm({
       username: '',
@@ -22,13 +24,8 @@ const EventPracticeFunction = () => {
       address: '',
     });
   };
-  const onKeyPress = e => {
-    if (e.key === 'Enter') {
-      onClick();
-    }
-  };
   return (
-    <div>
+    <form onSubmit={onSubmit}>
       <h1>이벤트 연습</h1>
       <input
         type="text"
@@ -43,7 +40,6 @@ const EventPracticeFunction = () => {
         placeholder="아무거나 입력해 보세요."
         vlaue={message}
         onChange={onChange}
-        onKeyPress={onKeyPress}
       ></input>
       <input
         type="text"
@@ -52,8 +48,8 @@ const EventPracticeFunction = () => {
         value={address}
         onChange={onChange}
       ></input>
-      <button onClick={onClick}>확인</button>
-    </div>
+      <button type="submit">확인</button>
+    </form>
   );
 };
 
